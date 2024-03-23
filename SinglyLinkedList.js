@@ -61,17 +61,54 @@ class LinkedList {
   }
 
   insert(index, value) {
+    //validate params later
+
+    if (index === 0) {
+      return this.prepend(value);
+    }
+
     if (index >= this.length) {
       return this.append(value);
     }
 
-    for (let i = 1; i < this.length - 1; i++) {
-      if (i === index) {
-        const newNode = new Node(value);
-        console.log(this);
-        // newNode.next = this[i]
-      }
+    const newNode = new Node(value);
+    const leadNode = this.traverseToIndex(index - 1);
+    const temptNode = leadNode.next;
+    leadNode.next = newNode;
+    newNode.next = temptNode;
+    this.length++;
+    // return this.printList();
+  }
+
+  remove(index) {
+    // validate params later such as -# and outside of the index range
+
+    if (index === 0) {
+      this.head = this.head.next;
     }
+    const leadNode = this.traverseToIndex(index - 1);
+
+    if (index === this.length - 1) {
+      leadNode.next = null;
+      this.tail = leadNode;
+    }
+
+    const unwantedNode = leadNode.next;
+    leadNode.next = unwantedNode.next;
+    this.length--;
+  }
+
+  traverseToIndex(index) {
+    //can validate params later
+
+    let counter = 0;
+    let currentNode = this.head;
+
+    while (counter !== index) {
+      currentNode = currentNode.next;
+      counter++;
+    }
+    return currentNode;
   }
 }
 
@@ -80,4 +117,7 @@ myLinkedList.append(5);
 myLinkedList.append(16);
 myLinkedList.prepend(1);
 myLinkedList.insert(200, 99);
+myLinkedList.insert(3, 20);
+myLinkedList.remove(3);
+myLinkedList.remove(3);
 myLinkedList.printList();

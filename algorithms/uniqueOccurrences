@@ -1,0 +1,17 @@
+function uniqueOccurrences(arr: number[]): boolean {
+    //Create a Map to count occurrences of each element 
+    const count: Map<number,number> = new Map();
+
+    //Iterate over each element in the array 
+    for(const num of arr) {
+        // If the element is already in the Map, increment its occurrence count
+        // Otherwise, add the element with an occurrence count of 1
+        count.set(num, (count.get(num) || 0) +1);
+    }
+
+    const uniqueCount: Set<number> = new Set(count.values())
+    console.log(count.values())
+    
+
+    return count.size === uniqueCount.size; 
+};

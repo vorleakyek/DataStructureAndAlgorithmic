@@ -1,0 +1,31 @@
+//check if two strings are permutation of each other 
+
+function isPermutation(a, b) {
+    if (a.length !== b.length) {
+        return false;
+    }
+    
+    const mapA = new Map();
+    const mapB = new Map();
+
+    for (let i = 0; i < a.length; i++) {
+        const currentCharA = a.charAt(i);
+        const currentCharB = b.charAt(i);
+
+        mapA.set(currentCharA, (mapA.get(currentCharA) || 0) + 1);
+        mapB.set(currentCharB, (mapB.get(currentCharB) || 0) + 1);
+    }
+
+    for (const [key, value] of mapA) {
+        if (mapB.get(key) !== value) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+const a = "llistepn";
+const b = "silentkl";
+
+console.log(isPermutation(a, b)); // Should output false
